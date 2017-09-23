@@ -5,8 +5,8 @@
 class IGame
 {
 public:
-	virtual void Update() = 0;
-	virtual void Render() = 0;
+	virtual void update() = 0;
+	virtual void render() = 0;
 };
 
 #endif // !IGAME_H

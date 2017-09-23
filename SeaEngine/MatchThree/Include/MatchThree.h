@@ -10,8 +10,8 @@ public:
 	MatchThree();
 	~MatchThree();
 
-	virtual void Update();
-	virtual void Render();
+	virtual void update();
+	virtual void render();
 };
 
 #endif // !MATCHTHREE_H

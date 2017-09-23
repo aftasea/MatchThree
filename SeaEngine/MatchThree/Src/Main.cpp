@@ -4,9 +4,9 @@
 int main(int argc, char* args[])
 {
 	Engine engine;
-	engine.Init(640, 480, "Match Three");
+	engine.init(640, 480, "Match Three");
 	MatchThree game;
-	engine.Run(game);
+	engine.run(game);
 
 	return 0;
 }

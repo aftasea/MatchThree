@@ -8,10 +8,10 @@ MatchThree::~MatchThree()
 {
 }
 
-void MatchThree::Update()
+void MatchThree::update()
 {
 }
 
-void MatchThree::Render()
+void MatchThree::render()
 {
 }
