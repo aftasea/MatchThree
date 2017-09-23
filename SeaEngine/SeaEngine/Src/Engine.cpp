@@ -1,5 +1,11 @@
 #include "Engine.h"
 #include <SDL.h>
+#include <SDL_image.h>
+#include "Sprite.h"
+
+
+Engine* Engine::instance = nullptr;
+
 /*
 Engine::Engine()
 {
@@ -11,7 +17,6 @@ Engine::~Engine()
 
 //TODO: Free method for releasing resources (hint: use mart pointers)
 //SDL_FreeSurface( gHelloWorld );
-SDL_Surface* gHelloWorld = nullptr;
 
 void Engine::init(int width, int height, std::string name)
 {
@@ -22,22 +27,22 @@ void Engine::init(int width, int height, std::string name)
 	}
 	else
 	{
+		int imgFlags = IMG_INIT_PNG;
+		IMG_Init(imgFlags);
+		//if (!(IMG_Init(imgFlags) & imgFlags))
+
 		window = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 		if (window != nullptr)
 		{
 			screenSurface = SDL_GetWindowSurface(window);
-			gHelloWorld = loadImage("res/images/test.bmp");
-			if (gHelloWorld == nullptr)
-			{
-				printf("Unable to load image %s! SDL Error: %s\n", "res/images/test.bmp", SDL_GetError());
-			}
-
+			//gHelloWorld = loadImage("res/images/test.png");
 		}
 	}
 
 	/*SDL_DestrroyWindow(window);
 	SDL_Quit();*/
 }
+
 
 void Engine::run(IGame &game)
 {
@@ -48,10 +53,8 @@ void Engine::run(IGame &game)
 
 	while (!shouldQuit)
 	{
-		//Handle events on queue
 		while (SDL_PollEvent(&event) != 0)
 		{
-			//User requests quit
 			if (event.type == SDL_QUIT)
 				shouldQuit = true;
 		}
@@ -71,9 +74,23 @@ void Engine::render()
 	if (window != nullptr)
 	{
 		SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
-
-		if (gHelloWorld != nullptr)
-			SDL_BlitSurface(gHelloWorld, NULL, screenSurface, NULL);
+		
+		SDL_Surface* surface = nullptr;
+		std::map<std::string, SDL_Surface*>::iterator it;
+		SDL_Rect pos;
+		for (auto sprite : sprites)
+		{
+			it = images.find(sprite->getPath());
+			if (it != images.end())
+			{
+				surface = it->second;
+				pos.x = sprite->posX;
+				pos.y = sprite->posY;
+				SDL_BlitSurface(surface, NULL, screenSurface, &pos);
+			}
+		}
+		/*if (gHelloWorld != nullptr)
+			SDL_BlitSurface(gHelloWorld, NULL, screenSurface, nullptr);*/
 
 
 		game->render();
@@ -85,7 +102,7 @@ void Engine::render()
 SDL_Surface* Engine::loadImage(std::string path)
 {
 	SDL_Surface* optimizedSurface = nullptr;
-	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == nullptr)
 	{
 		printf("Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
@@ -99,7 +116,26 @@ SDL_Surface* Engine::loadImage(std::string path)
 		}
 
 		SDL_FreeSurface(loadedSurface);
+
+		Uint32 colorkey = SDL_MapRGB(optimizedSurface->format, 0, 0x00, 0x00);
+		SDL_SetColorKey(optimizedSurface, SDL_TRUE, colorkey);
 	}
 
 	return optimizedSurface;
+}
+
+void Engine::registerRenderableObject(Sprite* sprite)
+{
+	std::string path = sprite->getPath();
+	std::map<std::string, SDL_Surface*>::iterator it = images.find(path);
+	if (it == images.end())
+	{
+		SDL_Surface* image = loadImage(path);
+		if (image == nullptr)
+			return;
+		
+		images[path] = image;
+	}
+
+	sprites.push_back(sprite);
 }
