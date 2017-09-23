@@ -87,9 +87,11 @@
   <ItemGroup>
     <ClCompile Include="Src\Main.cpp" />
     <ClCompile Include="Src\MatchThree.cpp" />
+    <ClCompile Include="Src\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\MatchThree.h" />
+    <ClInclude Include="Include\Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

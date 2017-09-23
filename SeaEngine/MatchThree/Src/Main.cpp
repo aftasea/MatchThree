@@ -4,7 +4,7 @@
 int main(int argc, char* args[])
 {
 	Engine engine;
-	engine.init(640, 480, "Match Three");
+	engine.init(800, 600, "Match Three");
 	MatchThree game;
 	engine.run(game);
 
