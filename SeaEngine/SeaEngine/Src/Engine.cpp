@@ -34,7 +34,7 @@ void Engine::Init(int width, int height, std::string name)
 		}
 	}
 
-	/*SDL_DestroyWindow(window);
+	/*SDL_DestrroyWindow(window);
 	SDL_Quit();*/
 }
 
