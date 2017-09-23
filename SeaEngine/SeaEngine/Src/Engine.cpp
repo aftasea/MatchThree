@@ -10,6 +10,7 @@ Engine::~Engine()
 }
 
 //TODO: Free method for releasing resources (hint: use mart pointers)
+//SDL_FreeSurface( gHelloWorld );
 SDL_Surface* gHelloWorld = nullptr;
 
 void Engine::Init(int width, int height, std::string name)
@@ -40,8 +41,19 @@ void Engine::Init(int width, int height, std::string name)
 
 void Engine::Run(IGame &game)
 {
-	while (true)
+	SDL_Event event;
+	bool shouldQuit = false;
+
+	while (!shouldQuit)
 	{
+		//Handle events on queue
+		while (SDL_PollEvent(&event) != 0)
+		{
+			//User requests quit
+			if (event.type == SDL_QUIT)
+				shouldQuit = true;
+		}
+
 		if (window != nullptr)
 		{
 			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
