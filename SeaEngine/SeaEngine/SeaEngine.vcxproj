@@ -74,12 +74,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectDir)ThirdParty\SDL2-2.0.5\include;$(ProjectDir)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)ThirdParty\SDL2-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)\Bin\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)Bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)Temp\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)ThirdParty\SDL2-2.0.5\include;$(ProjectDir)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)ThirdParty\SDL2-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)\Bin\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)Bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)Temp\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Lib>

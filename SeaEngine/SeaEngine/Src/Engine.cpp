@@ -10,6 +10,7 @@ Engine::~Engine()
 }
 
 //TODO: Free method for releasing resources (hint: use mart pointers)
+SDL_Surface* gHelloWorld = nullptr;
 
 void Engine::Init(int width, int height, std::string name)
 {
@@ -24,6 +25,12 @@ void Engine::Init(int width, int height, std::string name)
 		if (window != nullptr)
 		{
 			screenSurface = SDL_GetWindowSurface(window);
+			gHelloWorld = SDL_LoadBMP("res/images/test.bmp");
+			if (gHelloWorld == NULL)
+			{
+				printf("Unable to load image %s! SDL Error: %s\n", "res/images/test.bmp", SDL_GetError());
+			}
+
 		}
 	}
 
@@ -38,8 +45,14 @@ void Engine::Run(IGame &game)
 		if (window != nullptr)
 		{
 			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
+
+			if (gHelloWorld != nullptr)
+				SDL_BlitSurface(gHelloWorld, NULL, screenSurface, NULL);
+
+
 			SDL_UpdateWindowSurface(window);
 			//SDL_Delay(2000);
+
 		}
 
 		game.Update();
