@@ -16,6 +16,8 @@ public:
 	int posY;
 	bool isVisible;
 
+	friend bool operator== (const Sprite &s1, const Sprite &s2);
+
 private:
 	std::string path;
 };

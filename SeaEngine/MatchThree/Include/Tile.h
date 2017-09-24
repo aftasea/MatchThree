@@ -22,11 +22,13 @@ public:
 	void initSprite(int id, std::string path);
 	void setPosition(int x, int y);
 	void setDimensions(int w, int h);
+	void removeSprite();
 
 private:
 	void select();
 	void deselect();
 	void swapSprite(Tile* newTile);
+	void clearMatches();
 
 	static Tile* previousSelected;
 	static Sprite* selectedSprite;

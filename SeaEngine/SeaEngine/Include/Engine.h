@@ -35,6 +35,7 @@ public:
 	void run(IGame &game);
 
 	void registerRenderableObject(int layer, Sprite* sprite);
+	void unregisterRenderableObject(Sprite* sprite);
 	void registerInputHandler(IInputHandler* handler);
 
 private:

@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "IInputHandler.h"
 #include "Actor.h"
+#include <algorithm>
 
 #include <cstdlib>
 #include <ctime>
@@ -150,6 +151,15 @@ void Engine::registerRenderableObject(int layer, Sprite* sprite)
 	}
 
 	sprites[layer].push_back(sprite);
+}
+
+void Engine::unregisterRenderableObject(Sprite* sprite)
+{
+	for (auto &pair : sprites)
+	{
+		auto &sprites = pair.second;
+		sprites.erase(std::remove(sprites.begin(), sprites.end(), sprite), sprites.end());
+	}
 }
 
 void Engine::registerInputHandler(IInputHandler* handler)

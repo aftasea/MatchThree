@@ -37,7 +37,8 @@ const Actor* Tile::getOwner() const
 
 void Tile::onMouseDown()
 {
-	std::cout << "Clicked! id: " << id << ", x: " << posX << ", y: " << posY << std::endl;
+	std::cout << "Clicked! id: " << id << ", x: " << posX << ", y: " << posY << ", gridX: " << gridPosX << ", gridY: " << gridPosY << std::endl;
+
 	if (isSelected)
 	{
 		deselect();
@@ -50,11 +51,13 @@ void Tile::onMouseDown()
 		}
 		else
 		{
-			std::vector<Tile*> adjacentTiles = MatchThree::getAllAdjacentTiles(gridPosX, gridPosY);
+			std::vector<Tile*> adjacentTiles = MatchThree::getInstance().getAllAdjacentTiles(gridPosX, gridPosY);
 			if (std::find(adjacentTiles.begin(), adjacentTiles.end(), previousSelected) != adjacentTiles.end())
 			{
 				swapSprite(previousSelected);
+				previousSelected->clearMatches();
 				previousSelected->deselect();
+				clearMatches();
 			}
 			else
 			{
@@ -91,6 +94,14 @@ void Tile::setDimensions(int w, int h)
 	height = h;
 }
 
+void Tile::removeSprite()
+{
+	std::cout << "Removing id: " << id << ", x: " << posX << ", y: " << posY << ", gridX: " << gridPosX << ", gridY: " << gridPosY << std::endl;
+	Engine::getInstance().unregisterRenderableObject(sprite);
+	sprite = nullptr;
+	id = -1;
+}
+
 void Tile::select()
 {
 	isSelected = true;
@@ -125,3 +136,18 @@ void Tile::swapSprite(Tile* newTile)
 	this->sprite->posX = posX;
 	this->sprite->posY = posY;
 }
+
+void Tile::clearMatches()
+{
+	if (sprite == nullptr)
+		return;
+
+	MatchThree::getInstance().clearAllMatches(gridPosX, gridPosY, id);
+
+	if (MatchThree::getInstance().matchFound)
+	{
+		removeSprite();
+		MatchThree::getInstance().matchFound = false;
+	}
+}
+

@@ -9,7 +9,7 @@
 
 MatchThree* MatchThree::instance = nullptr;
 
-MatchThree::MatchThree()
+MatchThree::MatchThree() : matchFound(false)
 {
 	if (instance == nullptr)
 		instance = this;
@@ -73,16 +73,94 @@ std::vector<Tile*> MatchThree::getAllAdjacentTiles(int x, int y)
 	std::vector<Tile*> adjacentTiles;
 
 	if (x > 0)
-		adjacentTiles.push_back(instance->tiles[x - 1][y]);
+		adjacentTiles.push_back(tiles[x - 1][y]);
 
-	if (x < (instance->settings.boardWidht - 1))
-		adjacentTiles.push_back(instance->tiles[x + 1][y]);
+	if (x < (settings.boardWidht - 1))
+		adjacentTiles.push_back(tiles[x + 1][y]);
 
 	if (y > 0)
-		adjacentTiles.push_back(instance->tiles[x][y - 1]);
+		adjacentTiles.push_back(tiles[x][y - 1]);
 
-	if (y < (instance->settings.boardHeight - 1))
-		adjacentTiles.push_back(instance->tiles[x][y + 1]);
+	if (y < (settings.boardHeight - 1))
+		adjacentTiles.push_back(tiles[x][y + 1]);
 
 	return adjacentTiles;
+}
+
+void MatchThree::clearAllMatches(int x, int y, int id)
+{
+	clearHorizontalMatches(x, y, id);
+	clearVerticalMatches(x, y, id);
+}
+
+void MatchThree::clearHorizontalMatches(int x, int y, int id)
+{
+	std::vector<Tile*> matchingTiles;
+
+	// checking to the left
+	int gridPos = x - 1;
+	while (gridPos >= 0)
+	{
+		if (tiles[gridPos][y]->getId() != id)
+			break;
+
+		matchingTiles.push_back(tiles[gridPos][y]);
+		--gridPos;
+	}
+
+	// checking to the right
+	gridPos = x + 1;
+	while (gridPos < settings.boardWidht)
+	{
+		if (tiles[gridPos][y]->getId() != id)
+			break;
+
+		matchingTiles.push_back(tiles[gridPos][y]);
+		++gridPos;
+	}
+
+	if (matchingTiles.size() >= 2)
+	{
+		for (auto tile : matchingTiles)
+		{
+			tile->removeSprite();
+		}
+		matchFound = true;
+	}
+}
+
+void MatchThree::clearVerticalMatches(int x, int y, int id)
+{
+	std::vector<Tile*> matchingTiles;
+
+	// checking up
+	int gridPos = y - 1;
+	while (gridPos >= 0)
+	{
+		if (tiles[x][gridPos]->getId() != id)
+			break;
+
+		matchingTiles.push_back(tiles[x][gridPos]);
+		--gridPos;
+	}
+
+	// checking down
+	gridPos = y + 1;
+	while (gridPos < settings.boardHeight)
+	{
+		if (tiles[x][gridPos]->getId() != id)
+			break;
+
+		matchingTiles.push_back(tiles[x][gridPos]);
+		++gridPos;
+	}
+
+	if (matchingTiles.size() >= 2)
+	{
+		for (auto tile : matchingTiles)
+		{
+			tile->removeSprite();
+		}
+		matchFound = true;
+	}
 }
