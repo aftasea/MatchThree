@@ -1,13 +1,17 @@
 #include "Tile.h"
 #include "Sprite.h"
 #include "Engine.h"
+#include "MatchThree.h"
+#include <vector>
 #include <iostream>
 
 Tile* Tile::previousSelected(nullptr);
 Sprite* Tile::selectedSprite(nullptr);
 
-Tile::Tile() : sprite(nullptr), isSelected(false)
+Tile::Tile(int gridPositionX, int gridPositionY) : sprite(nullptr), isSelected(false)
 {
+	gridPosX = gridPositionX;
+	gridPosY = gridPositionY;
 	Engine::getInstance().registerInputHandler(this);
 
 	if (selectedSprite == nullptr)
@@ -46,8 +50,17 @@ void Tile::onMouseDown()
 		}
 		else
 		{
-			swapSprite(previousSelected);
-			previousSelected->deselect();
+			std::vector<Tile*> adjacentTiles = MatchThree::getAllAdjacentTiles(gridPosX, gridPosY);
+			if (std::find(adjacentTiles.begin(), adjacentTiles.end(), previousSelected) != adjacentTiles.end())
+			{
+				swapSprite(previousSelected);
+				previousSelected->deselect();
+			}
+			else
+			{
+				previousSelected->deselect();
+				select();
+			}
 		}
 	}
 }

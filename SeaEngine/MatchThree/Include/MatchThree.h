@@ -19,9 +19,13 @@ public:
 	virtual void update();
 	virtual void render();
 
+	static std::vector<Tile*> getAllAdjacentTiles(int x, int y);
+
 private:
+	static MatchThree* instance;
+
 	void createBoard();
-	int getRandomAvailableTileId(int posX, int posY, std::vector<Tile*> &row);
+	int getRandomAvailableTileId(int posX, int posY, std::vector<Tile*> &col);
 
 	Settings settings;
 	std::vector<std::vector<Tile*>> tiles;

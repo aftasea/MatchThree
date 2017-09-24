@@ -11,7 +11,7 @@ class Sprite;
 class Tile : public Actor, public IInputHandler
 {
 public:
-	Tile();
+	Tile(int gridPositionX, int gridPositionY);
 	~Tile();
 
 	virtual const Actor* getOwner() const;
@@ -34,6 +34,8 @@ private:
 	Sprite* sprite;
 	int id;
 	bool isSelected = false;
+	int gridPosX;
+	int gridPosY;
 };
 
 #endif // !TILE_H
