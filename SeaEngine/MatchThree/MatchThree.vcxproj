@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\MatchThree.h" />
+    <ClInclude Include="Include\Settings.h" />
     <ClInclude Include="Include\Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

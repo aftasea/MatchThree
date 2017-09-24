@@ -3,6 +3,9 @@
 #include <SDL_image.h>
 #include "Sprite.h"
 
+#include <cstdlib>
+#include <ctime>
+
 
 Engine* Engine::instance = nullptr;
 
@@ -41,6 +44,8 @@ void Engine::init(int width, int height, std::string name)
 
 	/*SDL_DestrroyWindow(window);
 	SDL_Quit();*/
+
+	srand(static_cast<unsigned int>(time(0)));
 }
 
 
@@ -78,7 +83,7 @@ void Engine::render()
 		SDL_Surface* surface = nullptr;
 		std::map<std::string, SDL_Surface*>::iterator it;
 		SDL_Rect pos;
-		for (auto sprite : sprites)
+		for (auto &sprite : sprites)
 		{
 			it = images.find(sprite->getPath());
 			if (it != images.end())

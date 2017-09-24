@@ -8,5 +8,6 @@
   <ItemGroup>
     <ClInclude Include="Include\MatchThree.h" />
     <ClInclude Include="Include\Tile.h" />
+    <ClInclude Include="Include\Settings.h" />
   </ItemGroup>
 </Project>

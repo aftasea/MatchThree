@@ -1,18 +1,26 @@
 #include "MatchThree.h"
 #include "Sprite.h"
 #include "Tile.h"
+#include "Settings.h"
+#include "Utils.h"
 #include <vector>
-
-#include <cstdlib>
-#include <ctime>
 
 MatchThree::MatchThree()
 {
-	setup();
+	createBoard();
 }
 
 MatchThree::~MatchThree()
 {
+	for (auto &row : tiles)
+	{
+		for (auto &tile : row)
+		{
+			delete tile;
+		}
+	}
+
+	tiles.clear();
 }
 
 void MatchThree::update()
@@ -23,39 +31,16 @@ void MatchThree::render()
 {
 }
 
-void MatchThree::setup()
+void MatchThree::createBoard()
 {
-	// game settings
-	int xOffset = 64;
-	int yOffset = 64;
-	characters = {
-		"res/images/test.png",
-		"res/images/test2.png",
-		"res/images/test3.png"
-	};
-	createBoard(xOffset, yOffset);
-}
-
-int getRandom(int min, int max)
-{
-	return (rand() % (max - min + 1)) + min;
-}
-
-void MatchThree::createBoard(int xOffset, int yOffset)
-{
-	std::vector<std::vector<Tile*>> tiles;
-
-	int startX = 200;
-	int startY = 100;
-
-	srand(static_cast<unsigned int>(time(0)));
-
-	for (int x = 0; x < 6; x++) {
+	for (int x = 0; x < settings.boardWidht; ++x)
+	{
 		std::vector<Tile*> row;
-		for (int y = 0; y < 6; y++) {
+		for (int y = 0; y < settings.boardHeight; ++y)
+		{
 			Tile* newTile = new Tile();
-			newTile->initSprite(characters[getRandom(0, characters.size() - 1)]);
-			newTile->setPosition(startX + (xOffset * x), startY + (yOffset * y));
+			newTile->initSprite(settings.characters[Utils::getRandom(0, settings.characters.size() - 1)]);
+			newTile->setPosition(settings.boardStartX + (settings.tileXOffset * x), settings.boardStartY + (settings.tileYOffset * y));
 			row.push_back(newTile);
 		}
 		tiles.push_back(row);
