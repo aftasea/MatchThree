@@ -26,6 +26,7 @@ public:
 private:
 	void select();
 	void deselect();
+	void swapSprite(Tile* newTile);
 
 	static Tile* previousSelected;
 	static Sprite* selectedSprite;

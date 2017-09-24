@@ -41,9 +41,14 @@ void Tile::onMouseDown()
 	else
 	{
 		if (previousSelected == nullptr)
+		{
 			select();
+		}
 		else
+		{
+			swapSprite(previousSelected);
 			previousSelected->deselect();
+		}
 	}
 }
 
@@ -87,4 +92,23 @@ void Tile::deselect()
 	isSelected = false;
 	selectedSprite->isVisible = false;
 	previousSelected = nullptr;
+}
+
+void Tile::swapSprite(Tile* newTile)
+{
+	if (newTile->id == id)
+		return;
+	std::cout << "swapping " << id << " x " << newTile->id << std::endl;
+
+	int tempId = newTile->id;
+	newTile->id = id;
+	id = tempId;
+
+	Sprite* tempSprite = newTile->sprite;
+	newTile->sprite = sprite;
+	newTile->sprite->posX = tempSprite->posX;
+	newTile->sprite->posY = tempSprite->posY;
+	this->sprite = tempSprite;
+	this->sprite->posX = posX;
+	this->sprite->posY = posY;
 }
