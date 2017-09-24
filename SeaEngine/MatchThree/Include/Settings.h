@@ -8,17 +8,32 @@
 class Settings
 {
 public:
-	int tileXOffset = 64;
-	int tileYOffset = 64;
-	int boardWidht = 6;
-	int boardHeight = 6;
-	int boardStartX = 200;
-	int boardStartY = 100;
-	std::vector<std::string> characters = {
-		"res/images/test.png",
-		"res/images/test2.png",
-		"res/images/test3.png"
-	};
+	Settings()
+	{
+		tileXOffset = 64;
+		tileYOffset = 64;
+		
+		boardWidht = 6;
+		boardHeight = 6;
+		boardStartX = 200;
+		boardStartY = 100;
+
+		characters = {
+			"res/images/test.png",
+			"res/images/test2.png",
+			"res/images/test3.png"/*,
+			"res/images/test4.png",
+			"res/images/test5.png"*/
+		};
+	}
+
+	int tileXOffset;
+	int tileYOffset;
+	int boardWidht;
+	int boardHeight;
+	int boardStartX;
+	int boardStartY;
+	std::vector<std::string> characters;
 };
 
 #endif // !SETTINGS_H

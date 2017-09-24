@@ -13,11 +13,14 @@ public:
 	{}
 	~Tile();
 
-	void initSprite(std::string path);
+	int getId() const;
+
+	void initSprite(int id, std::string path);
 	void setPosition(int x, int y);
 
 private:
 	Sprite* sprite;
+	int id;
 };
 
 #endif // !TILE_H

@@ -10,8 +10,14 @@ Tile::~Tile()
 	}
 }
 
-void Tile::initSprite(std::string path)
+int Tile::getId() const
 {
+	return id;
+}
+
+void Tile::initSprite(int id, std::string path)
+{
+	this->id = id;
 	if (sprite == nullptr)
 		sprite = new Sprite{ path };
 }

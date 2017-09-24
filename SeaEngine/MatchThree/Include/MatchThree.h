@@ -21,6 +21,7 @@ public:
 
 private:
 	void createBoard();
+	int getRandomAvailableTileId(int posX, int posY, std::vector<Tile*> &row);
 
 	Settings settings;
 	std::vector<std::vector<Tile*>> tiles;
