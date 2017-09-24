@@ -73,6 +73,11 @@ int Tile::getId() const
 	return id;
 }
 
+bool Tile::hasSprite() const
+{
+	return sprite != nullptr;
+}
+
 void Tile::initSprite(int id, std::string path)
 {
 	this->id = id;
@@ -130,11 +135,17 @@ void Tile::swapSprite(Tile* newTile)
 
 	Sprite* tempSprite = newTile->sprite;
 	newTile->sprite = sprite;
-	newTile->sprite->posX = tempSprite->posX;
-	newTile->sprite->posY = tempSprite->posY;
+	if (newTile->sprite != nullptr)
+	{
+		newTile->sprite->posX = newTile->posX;
+		newTile->sprite->posY = newTile->posY;
+	}
 	this->sprite = tempSprite;
-	this->sprite->posX = posX;
-	this->sprite->posY = posY;
+	if (sprite != nullptr)
+	{
+		this->sprite->posX = posX;
+		this->sprite->posY = posY;
+	}
 }
 
 void Tile::clearMatches()
@@ -148,6 +159,7 @@ void Tile::clearMatches()
 	{
 		removeSprite();
 		MatchThree::getInstance().matchFound = false;
+		MatchThree::getInstance().findNullTiles();
 	}
 }
 

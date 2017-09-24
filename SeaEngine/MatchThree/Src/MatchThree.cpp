@@ -164,3 +164,46 @@ void MatchThree::clearVerticalMatches(int x, int y, int id)
 		matchFound = true;
 	}
 }
+
+void MatchThree::findNullTiles()
+{
+	for (int x = 0; x < settings.boardWidht; ++x)
+	{
+		for (int y = settings.boardHeight - 1; y >= 0; --y)
+		{
+			if (!tiles[x][y]->hasSprite())
+			{
+				//addCoroutine(shiftTilesDown(x, y));
+				shiftTilesDown(x, y);
+				break;
+			}
+		}
+	}
+}
+
+void MatchThree::shiftTilesDown(int x, int initialY)
+{
+	//isShifting = true;
+	std::vector<Tile*> tilesOnTop;
+	int nullCount = 0;
+
+	for (int y = initialY; y >= 0; --y)
+	{
+		if (!tiles[x][y]->hasSprite())
+			nullCount++;
+
+		tilesOnTop.push_back(tiles[x][y]);
+	}
+
+	for (int i = 0; i < nullCount; i++) {
+		//yield return new WaitForSeconds(shiftDelay);
+		for (int k = 0; k < tilesOnTop.size() - 1; ++k)
+		{
+			/*renders[k].sprite = renders[k + 1].sprite;
+			renders[k + 1].sprite = null;*/
+			tilesOnTop[k]->swapSprite(tilesOnTop[k + 1]);
+		}
+
+	}
+	//isShifting = false;
+}

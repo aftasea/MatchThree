@@ -18,16 +18,17 @@ public:
 	virtual void onMouseDown();
 
 	int getId() const;
+	bool hasSprite() const;
 
 	void initSprite(int id, std::string path);
 	void setPosition(int x, int y);
 	void setDimensions(int w, int h);
 	void removeSprite();
+	void swapSprite(Tile* newTile);
 
 private:
 	void select();
 	void deselect();
-	void swapSprite(Tile* newTile);
 	void clearMatches();
 
 	static Tile* previousSelected;

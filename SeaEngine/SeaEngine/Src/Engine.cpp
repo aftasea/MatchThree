@@ -67,6 +67,7 @@ void Engine::run(IGame &game)
 					if (isPointInside(handler->getOwner(), x, y))
 						handler->onMouseDown();
 				}
+				
 			}
 		}
 		

@@ -26,6 +26,7 @@ public:
 
 	std::vector<Tile*> getAllAdjacentTiles(int x, int y);
 	void clearAllMatches(int x, int y, int id);
+	void findNullTiles();
 
 	bool matchFound;
 
@@ -36,7 +37,7 @@ private:
 	int getRandomAvailableTileId(int posX, int posY, std::vector<Tile*> &col);
 	void clearHorizontalMatches(int x, int y, int id);
 	void clearVerticalMatches(int x, int y, int id);
-	std::vector<Tile*> findMatches(int x, int y, int id);
+	void MatchThree::shiftTilesDown(int initialX, int initialY);
 
 	Settings settings;
 	std::vector<std::vector<Tile*>> tiles;
