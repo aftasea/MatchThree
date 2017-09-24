@@ -12,6 +12,8 @@ struct SDL_Surface;
 struct SDL_Rect;
 
 class Sprite;
+class IInputHandler;
+class Actor;
 
 class Engine
 {
@@ -33,6 +35,7 @@ public:
 	void run(IGame &game);
 
 	void registerRenderableObject(Sprite* sprite);
+	void registerInputHandler(IInputHandler* handler);
 
 private:
 	static Engine* instance;
@@ -40,6 +43,7 @@ private:
 	void update();
 	void render();
 	SDL_Surface* loadImage(std::string path);
+	bool isPointInside(const Actor* actor, int pointX, int pointY) const;
 
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
@@ -47,6 +51,7 @@ private:
 
 	std::map<std::string, SDL_Surface*> images;
 	std::vector<Sprite*> sprites;
+	std::vector<IInputHandler*> inputHandlers;
 };
 
 #endif // !ENGINE_H

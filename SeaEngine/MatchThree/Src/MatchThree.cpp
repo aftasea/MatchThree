@@ -44,6 +44,7 @@ void MatchThree::createBoard()
 			Tile* newTile = new Tile();
 			newTile->initSprite(id, settings.characters[id]);
 			newTile->setPosition(settings.boardStartX + (settings.tileXOffset * x), settings.boardStartY + (settings.tileYOffset * y));
+			newTile->setDimensions(settings.tileXOffset, settings.tileYOffset);
 			row.push_back(newTile);
 		}
 		tiles.push_back(row);

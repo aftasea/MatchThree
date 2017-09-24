@@ -19,13 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Actor.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
     <ClCompile Include="Src\Sprite.cpp" />
     <ClCompile Include="Src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Actor.h" />
     <ClInclude Include="Include\Engine.h" />
     <ClInclude Include="Include\IGame.h" />
+    <ClInclude Include="Include\IInputHandler.h" />
     <ClInclude Include="Include\Sprite.h" />
     <ClInclude Include="Include\Utils.h" />
   </ItemGroup>

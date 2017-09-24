@@ -2,6 +2,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Sprite.h"
+#include "IInputHandler.h"
+#include "Actor.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -9,17 +11,14 @@
 
 Engine* Engine::instance = nullptr;
 
-/*
-Engine::Engine()
-{
-}*/
-
 Engine::~Engine()
 {
+	for (auto imgPair : images)
+		SDL_FreeSurface(imgPair.second);
+	if (window != nullptr)
+		SDL_DestroyWindow(window);
+	SDL_Quit();
 }
-
-//TODO: Free method for releasing resources (hint: use mart pointers)
-//SDL_FreeSurface( gHelloWorld );
 
 void Engine::init(int width, int height, std::string name)
 {
@@ -32,18 +31,13 @@ void Engine::init(int width, int height, std::string name)
 	{
 		int imgFlags = IMG_INIT_PNG;
 		IMG_Init(imgFlags);
-		//if (!(IMG_Init(imgFlags) & imgFlags))
 
 		window = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 		if (window != nullptr)
 		{
 			screenSurface = SDL_GetWindowSurface(window);
-			//gHelloWorld = loadImage("res/images/test.png");
 		}
 	}
-
-	/*SDL_DestrroyWindow(window);
-	SDL_Quit();*/
 
 	srand(static_cast<unsigned int>(time(0)));
 }
@@ -62,6 +56,17 @@ void Engine::run(IGame &game)
 		{
 			if (event.type == SDL_QUIT)
 				shouldQuit = true;
+
+			if (event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				int x, y;
+				SDL_GetMouseState(&x, &y);
+				for (IInputHandler* handler : inputHandlers)
+				{
+					if (isPointInside(handler->getOwner(), x, y))
+						handler->onMouseDown();
+				}
+			}
 		}
 		
 		update();
@@ -94,12 +99,8 @@ void Engine::render()
 				SDL_BlitSurface(surface, NULL, screenSurface, &pos);
 			}
 		}
-		/*if (gHelloWorld != nullptr)
-			SDL_BlitSurface(gHelloWorld, NULL, screenSurface, nullptr);*/
-
 
 		game->render();
-
 		SDL_UpdateWindowSurface(window);
 	}
 }
@@ -143,4 +144,26 @@ void Engine::registerRenderableObject(Sprite* sprite)
 	}
 
 	sprites.push_back(sprite);
+}
+
+void Engine::registerInputHandler(IInputHandler* handler)
+{
+	inputHandlers.push_back(handler);
+}
+
+bool Engine::isPointInside(const Actor* actor, int pointX, int pointY) const
+{
+	if (pointX < actor->getXpos())
+		return false;
+
+	if (pointX >  actor->getXpos() + actor->getWidth())
+		return false;
+
+	if (pointY < actor->getYpos())
+		return false;
+
+	if (pointY >actor->getYpos() + actor->getHeight())
+		return false;
+
+	return true;
 }
