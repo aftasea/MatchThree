@@ -24,8 +24,15 @@ public:
 	void setDimensions(int w, int h);
 
 private:
+	void select();
+	void deselect();
+
+	static Tile* previousSelected;
+	static Sprite* selectedSprite;
+
 	Sprite* sprite;
 	int id;
+	bool isSelected = false;
 };
 
 #endif // !TILE_H

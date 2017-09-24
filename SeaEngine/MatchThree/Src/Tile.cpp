@@ -3,9 +3,18 @@
 #include "Engine.h"
 #include <iostream>
 
-Tile::Tile() : sprite(nullptr)
+Tile* Tile::previousSelected(nullptr);
+Sprite* Tile::selectedSprite(nullptr);
+
+Tile::Tile() : sprite(nullptr), isSelected(false)
 {
 	Engine::getInstance().registerInputHandler(this);
+
+	if (selectedSprite == nullptr)
+	{
+		selectedSprite = new Sprite(2, "res/images/selected.png");
+		selectedSprite->isVisible = false;
+	}
 }
 
 Tile::~Tile()
@@ -25,6 +34,17 @@ const Actor* Tile::getOwner() const
 void Tile::onMouseDown()
 {
 	std::cout << "Clicked! id: " << id << ", x: " << posX << ", y: " << posY << std::endl;
+	if (isSelected)
+	{
+		deselect();
+	}
+	else
+	{
+		if (previousSelected == nullptr)
+			select();
+		else
+			previousSelected->deselect();
+	}
 }
 
 int Tile::getId() const
@@ -36,7 +56,7 @@ void Tile::initSprite(int id, std::string path)
 {
 	this->id = id;
 	if (sprite == nullptr)
-		sprite = new Sprite{ path };
+		sprite = new Sprite{ 1, path };
 }
 
 void Tile::setPosition(int x, int y)
@@ -51,4 +71,20 @@ void Tile::setDimensions(int w, int h)
 {
 	width = w;
 	height = h;
+}
+
+void Tile::select()
+{
+	isSelected = true;
+	selectedSprite->posX = posX;
+	selectedSprite->posY = posY;
+	selectedSprite->isVisible = true;
+	previousSelected = this;
+}
+
+void Tile::deselect()
+{
+	isSelected = false;
+	selectedSprite->isVisible = false;
+	previousSelected = nullptr;
 }

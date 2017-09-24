@@ -4,9 +4,9 @@
 #include "Engine.h"
 #include <iostream>
 
-Sprite::Sprite(std::string filepath) : posX(0), posY(0), path(filepath)
+Sprite::Sprite(int layer, std::string filepath) : posX(0), posY(0), path(filepath), isVisible(true)
 {
-	Engine::getInstance().registerRenderableObject(this);
+	Engine::getInstance().registerRenderableObject(layer, this);
 }
 
 Sprite::~Sprite()

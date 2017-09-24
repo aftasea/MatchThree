@@ -88,15 +88,21 @@ void Engine::render()
 		SDL_Surface* surface = nullptr;
 		std::map<std::string, SDL_Surface*>::iterator it;
 		SDL_Rect pos;
-		for (auto &sprite : sprites)
+		for (auto &pair :sprites)
 		{
-			it = images.find(sprite->getPath());
-			if (it != images.end())
+			for (auto sprite : pair.second)
 			{
-				surface = it->second;
-				pos.x = sprite->posX;
-				pos.y = sprite->posY;
-				SDL_BlitSurface(surface, NULL, screenSurface, &pos);
+				if (sprite->isVisible)
+				{
+					it = images.find(sprite->getPath());
+					if (it != images.end())
+					{
+						surface = it->second;
+						pos.x = sprite->posX;
+						pos.y = sprite->posY;
+						SDL_BlitSurface(surface, NULL, screenSurface, &pos);
+					}
+				}
 			}
 		}
 
@@ -123,14 +129,14 @@ SDL_Surface* Engine::loadImage(std::string path)
 
 		SDL_FreeSurface(loadedSurface);
 
-		Uint32 colorkey = SDL_MapRGB(optimizedSurface->format, 0, 0x00, 0x00);
+		Uint32 colorkey = SDL_MapRGB(optimizedSurface->format, 0, 0xFF, 0xFF);
 		SDL_SetColorKey(optimizedSurface, SDL_TRUE, colorkey);
 	}
 
 	return optimizedSurface;
 }
 
-void Engine::registerRenderableObject(Sprite* sprite)
+void Engine::registerRenderableObject(int layer, Sprite* sprite)
 {
 	std::string path = sprite->getPath();
 	std::map<std::string, SDL_Surface*>::iterator it = images.find(path);
@@ -143,7 +149,7 @@ void Engine::registerRenderableObject(Sprite* sprite)
 		images[path] = image;
 	}
 
-	sprites.push_back(sprite);
+	sprites[layer].push_back(sprite);
 }
 
 void Engine::registerInputHandler(IInputHandler* handler)

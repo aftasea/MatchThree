@@ -34,7 +34,7 @@ public:
 	void init(int width, int height, std::string name);
 	void run(IGame &game);
 
-	void registerRenderableObject(Sprite* sprite);
+	void registerRenderableObject(int layer, Sprite* sprite);
 	void registerInputHandler(IInputHandler* handler);
 
 private:
@@ -50,7 +50,7 @@ private:
 	IGame* game;
 
 	std::map<std::string, SDL_Surface*> images;
-	std::vector<Sprite*> sprites;
+	std::map<int, std::vector<Sprite*>> sprites;
 	std::vector<IInputHandler*> inputHandlers;
 };
 

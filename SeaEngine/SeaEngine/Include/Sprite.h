@@ -7,13 +7,14 @@
 class Sprite
 {
 public:
-	Sprite(std::string filepath);
+	Sprite(int layer, std::string filepath);
 	~Sprite();
 
 	const std::string& getPath() const;
 
 	int posX;
 	int posY;
+	bool isVisible;
 
 private:
 	std::string path;
