@@ -4,13 +4,23 @@
 #include "Sprite.h"
 #include "IInputHandler.h"
 #include "Actor.h"
+#include "TimeManager.h"
 #include <algorithm>
+#include "IObserver.h"
 
 #include <cstdlib>
 #include <ctime>
 
 
 Engine* Engine::instance = nullptr;
+
+Engine::Engine() : window(nullptr), screenSurface(nullptr), game(nullptr), timeManager(nullptr)
+{
+	if (Engine::instance == nullptr)
+		Engine::instance = this;
+
+	timeManager = new TimeManager();
+}
 
 Engine::~Engine()
 {
@@ -23,8 +33,7 @@ Engine::~Engine()
 
 void Engine::init(int width, int height, std::string name)
 {
-
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
 	{
 		return;
 	}
@@ -166,6 +175,11 @@ void Engine::unregisterRenderableObject(Sprite* sprite)
 void Engine::registerInputHandler(IInputHandler* handler)
 {
 	inputHandlers.push_back(handler);
+}
+
+void Engine::registerDelayedCallback(uint32_t interval, IObserver* observer)
+{
+	timeManager->registerDelayedCallback(interval, observer);
 }
 
 bool Engine::isPointInside(const Actor* actor, int pointX, int pointY) const

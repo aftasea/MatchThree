@@ -9,6 +9,7 @@
 #include "Settings.h"
 
 class Tile;
+class BlockShifter;
 
 class MatchThree : public IGame
 {
@@ -41,6 +42,7 @@ private:
 
 	Settings settings;
 	std::vector<std::vector<Tile*>> tiles;
+	std::vector<BlockShifter*> shifts;
 };
 
 #endif // !MATCHTHREE_H

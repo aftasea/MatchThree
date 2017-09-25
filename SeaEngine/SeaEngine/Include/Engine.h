@@ -5,7 +5,9 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <cstdint>
 #include "IGame.h"
+#include "IObserver.h"
 
 struct SDL_Window;
 struct SDL_Surface;
@@ -14,16 +16,12 @@ struct SDL_Rect;
 class Sprite;
 class IInputHandler;
 class Actor;
+class TimeManager;
 
 class Engine
 {
 public:
-	Engine() : window(nullptr), screenSurface(nullptr), game(nullptr)
-	{
-		if (Engine::instance == nullptr)
-			Engine::instance = this;
-	}
-
+	Engine();
 	~Engine();
 
 	static Engine& getInstance()
@@ -37,6 +35,7 @@ public:
 	void registerRenderableObject(int layer, Sprite* sprite);
 	void unregisterRenderableObject(Sprite* sprite);
 	void registerInputHandler(IInputHandler* handler);
+	void registerDelayedCallback(uint32_t interval, IObserver* observer);
 
 private:
 	static Engine* instance;
@@ -49,6 +48,8 @@ private:
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
 	IGame* game;
+
+	TimeManager* timeManager;
 
 	std::map<std::string, SDL_Surface*> images;
 	std::map<int, std::vector<Sprite*>> sprites;

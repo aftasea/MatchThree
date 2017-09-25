@@ -85,11 +85,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\BlockShifter.cpp" />
     <ClCompile Include="Src\Main.cpp" />
     <ClCompile Include="Src\MatchThree.cpp" />
     <ClCompile Include="Src\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\BlockShifter.h" />
     <ClInclude Include="Include\MatchThree.h" />
     <ClInclude Include="Include\Settings.h" />
     <ClInclude Include="Include\Tile.h" />

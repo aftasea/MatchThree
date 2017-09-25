@@ -4,10 +4,12 @@
     <ClCompile Include="Src\Main.cpp" />
     <ClCompile Include="Src\MatchThree.cpp" />
     <ClCompile Include="Src\Tile.cpp" />
+    <ClCompile Include="Src\BlockShifter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\MatchThree.h" />
     <ClInclude Include="Include\Tile.h" />
     <ClInclude Include="Include\Settings.h" />
+    <ClInclude Include="Include\BlockShifter.h" />
   </ItemGroup>
 </Project>

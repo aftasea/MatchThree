@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include "Settings.h"
 #include "Utils.h"
+#include "BlockShifter.h"
 #include <vector>
 
 #include <iostream>
@@ -18,6 +19,11 @@ MatchThree::MatchThree() : matchFound(false)
 
 MatchThree::~MatchThree()
 {
+	for (auto x : shifts)
+	{
+		delete x;
+	}
+
 	for (auto &row : tiles)
 	{
 		for (auto &tile : row)
@@ -25,12 +31,15 @@ MatchThree::~MatchThree()
 			delete tile;
 		}
 	}
-
-	tiles.clear();
 }
 
 void MatchThree::update()
 {
+	for (auto shifter : shifts)
+	{
+		if (shifter->finished())
+			; // delete shifter; --> shifts.erase(shifter);
+	}
 }
 
 void MatchThree::render()
@@ -173,7 +182,6 @@ void MatchThree::findNullTiles()
 		{
 			if (!tiles[x][y]->hasSprite())
 			{
-				//addCoroutine(shiftTilesDown(x, y));
 				shiftTilesDown(x, y);
 				break;
 			}
@@ -184,26 +192,17 @@ void MatchThree::findNullTiles()
 void MatchThree::shiftTilesDown(int x, int initialY)
 {
 	//isShifting = true;
-	std::vector<Tile*> tilesOnTop;
+	std::vector<Tile*> tilesToShift;
 	int nullCount = 0;
 
 	for (int y = initialY; y >= 0; --y)
 	{
 		if (!tiles[x][y]->hasSprite())
-			nullCount++;
+			++nullCount;
 
-		tilesOnTop.push_back(tiles[x][y]);
+		tilesToShift.push_back(tiles[x][y]);
 	}
 
-	for (int i = 0; i < nullCount; i++) {
-		//yield return new WaitForSeconds(shiftDelay);
-		for (int k = 0; k < tilesOnTop.size() - 1; ++k)
-		{
-			/*renders[k].sprite = renders[k + 1].sprite;
-			renders[k + 1].sprite = null;*/
-			tilesOnTop[k]->swapSprite(tilesOnTop[k + 1]);
-		}
-
-	}
+	shifts.push_back(new BlockShifter(nullCount, 300, tilesToShift));
 	//isShifting = false;
 }
