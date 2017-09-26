@@ -11,6 +11,7 @@ public:
 	~Sprite();
 
 	const std::string& getPath() const;
+	int getId() const;
 
 	int posX;
 	int posY;
@@ -20,6 +21,7 @@ public:
 
 private:
 	std::string path;
+	int id;
 };
 
 #endif // !SPRITE_H

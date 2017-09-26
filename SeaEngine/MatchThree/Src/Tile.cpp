@@ -78,11 +78,24 @@ bool Tile::hasSprite() const
 	return sprite != nullptr;
 }
 
+int Tile::getGridPosX() const
+{
+	return gridPosX;
+}
+
+int Tile::getGridPosY() const
+{
+	return gridPosY;
+}
+
 void Tile::initSprite(int id, std::string path)
 {
-	this->id = id;
 	if (sprite == nullptr)
 		sprite = new Sprite{ 1, path };
+	else
+		removeSprite();
+
+	this->id = id;
 }
 
 void Tile::setPosition(int x, int y)
@@ -103,6 +116,8 @@ void Tile::removeSprite()
 {
 	std::cout << "Removing id: " << id << ", x: " << posX << ", y: " << posY << ", gridX: " << gridPosX << ", gridY: " << gridPosY << std::endl;
 	Engine::getInstance().unregisterRenderableObject(sprite);
+	//TODO: use a Sprite pool instead of deleting
+	delete sprite;
 	sprite = nullptr;
 	id = -1;
 }
@@ -146,6 +161,27 @@ void Tile::swapSprite(Tile* newTile)
 		this->sprite->posX = posX;
 		this->sprite->posY = posY;
 	}
+}
+
+void Tile::setSpriteFrom(Tile* tile)
+{
+	id = tile->id;
+	sprite = tile->sprite;
+	if (sprite != nullptr)
+	{
+		sprite->posX = posX;
+		sprite->posY = posY;
+	}
+
+	tile->sprite = nullptr;
+	tile->id = -1;
+}
+
+void Tile::assignNewSprite(int spriteId, std::string path)
+{
+	initSprite(spriteId, path);
+	sprite->posX = posX;
+	sprite->posY = posY;
 }
 
 void Tile::clearMatches()

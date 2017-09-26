@@ -2,6 +2,7 @@
 #ifndef TIME_MANAGER_H
 #define TIME_MANAGER_H
 
+#include <queue>
 #include <SDL.h>
 #include "IObserver.h"
 
@@ -12,10 +13,13 @@ public:
 	~TimeManager();
 
 	void registerDelayedCallback(Uint32 interval, IObserver* observer);
+	void update();
 
 private:
-	static Uint32 notify(Uint32 interval, void* param);
-	
+	static TimeManager* instance;
+
+	static Uint32 enqueueNotification(Uint32 interval, void* param);
+	std::queue<IObserver*> observersToNotify;
 };
 
 #endif // !TIME_MANAGER_H

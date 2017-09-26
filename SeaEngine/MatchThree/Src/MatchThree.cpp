@@ -77,6 +77,26 @@ int MatchThree::getRandomAvailableTileId(int posX, int posY, std::vector<Tile*> 
 	return possibleCharacters[Utils::getRandom(0, possibleCharacters.size() - 1)];
 }
 
+int MatchThree::getRandomAvailableTileId(int x, int y)
+{
+	std::vector<int> possibleCharacters;
+	for (int i = 0; i < settings.characters.size(); ++i)
+	{
+		if (x > 0 && i == tiles[x - 1][y]->getId())
+			continue;
+		if (x < settings.boardWidht - 1 && i == tiles[x + 1][y]->getId())
+			continue;
+		if (y > 0 && i == tiles[x][y - 1]->getId())
+			continue;
+		if (y < settings.boardHeight - 1 && i == tiles[x][y + 1]->getId())
+			continue;
+
+		possibleCharacters.push_back(i);
+	}
+
+	return possibleCharacters[Utils::getRandom(0, possibleCharacters.size() - 1)];
+}
+
 std::vector<Tile*> MatchThree::getAllAdjacentTiles(int x, int y)
 {
 	std::vector<Tile*> adjacentTiles;
@@ -172,6 +192,12 @@ void MatchThree::clearVerticalMatches(int x, int y, int id)
 		}
 		matchFound = true;
 	}
+}
+
+void MatchThree::setNewSprite(Tile* tile)
+{
+	int spriteId = getRandomAvailableTileId(tile->getGridPosX(), tile->getGridPosY());
+	tile->assignNewSprite(spriteId, settings.characters[spriteId]);
 }
 
 void MatchThree::findNullTiles()

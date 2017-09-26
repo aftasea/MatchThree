@@ -22,8 +22,8 @@ public:
 			"res/images/jelly_1.png",
 			"res/images/jelly_2.png",
 			"res/images/jelly_3.png",
-			"res/images/jelly_4.png"/*,
-			"res/images/jelly_5.png",
+			"res/images/jelly_4.png",
+			"res/images/jelly_5.png"/*,
 			"res/images/jelly_6.png"*/
 		};
 	}

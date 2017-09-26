@@ -28,6 +28,7 @@ public:
 	std::vector<Tile*> getAllAdjacentTiles(int x, int y);
 	void clearAllMatches(int x, int y, int id);
 	void findNullTiles();
+	void setNewSprite(Tile* tile);
 
 	bool matchFound;
 
@@ -36,6 +37,7 @@ private:
 
 	void createBoard();
 	int getRandomAvailableTileId(int posX, int posY, std::vector<Tile*> &col);
+	int getRandomAvailableTileId(int x, int y);
 	void clearHorizontalMatches(int x, int y, int id);
 	void clearVerticalMatches(int x, int y, int id);
 	void MatchThree::shiftTilesDown(int initialX, int initialY);

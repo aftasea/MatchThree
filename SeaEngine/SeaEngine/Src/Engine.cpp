@@ -87,6 +87,7 @@ void Engine::run(IGame &game)
 
 void Engine::update()
 {
+	timeManager->update();
 	game->update();
 }
 
