@@ -26,6 +26,8 @@ public:
 			"res/images/jelly_5.png"/*,
 			"res/images/jelly_6.png"*/
 		};
+
+		clearedSprite = "res/images/test.png";
 	}
 
 	int tileXOffset;
@@ -35,6 +37,7 @@ public:
 	int boardStartX;
 	int boardStartY;
 	std::vector<std::string> characters;
+	std::string clearedSprite;
 };
 
 #endif // !SETTINGS_H

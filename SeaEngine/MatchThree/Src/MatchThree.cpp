@@ -220,6 +220,11 @@ void MatchThree::setNewSprite(Tile* tile)
 	tile->assignNewSprite(spriteId, settings.characters[spriteId]);
 }
 
+Sprite* MatchThree::getClearSprite() const
+{
+	return new Sprite(1, settings.clearedSprite);
+}
+
 void MatchThree::findNullTiles()
 {
 	for (int x = 0; x < settings.boardWidht; ++x)

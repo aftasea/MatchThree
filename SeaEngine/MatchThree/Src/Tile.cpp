@@ -90,11 +90,10 @@ int Tile::getGridPosY() const
 
 void Tile::initSprite(int id, std::string path)
 {
-	if (sprite == nullptr)
-		sprite = new Sprite{ 1, path };
-	else
+	if (sprite != nullptr)
 		removeSprite();
 
+	sprite = new Sprite{ 1, path };
 	this->id = id;
 }
 

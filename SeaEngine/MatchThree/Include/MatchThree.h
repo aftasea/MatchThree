@@ -10,6 +10,7 @@
 
 class Tile;
 class BlockShifter;
+class Sprite;
 
 class MatchThree : public IGame
 {
@@ -31,6 +32,7 @@ public:
 	void clearMatchesFrom(int x, int y, int id);
 	void findNullTiles();
 	void setNewSprite(Tile* tile);
+	Sprite* getClearSprite() const;
 
 	bool matchFound;
 
