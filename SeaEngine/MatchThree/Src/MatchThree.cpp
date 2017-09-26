@@ -35,15 +35,35 @@ MatchThree::~MatchThree()
 
 void MatchThree::update()
 {
-	for (auto shifter : shifts)
+	bool isShifting = this->isShifting();
+
+	for (auto shifterIt = shifts.begin(); shifterIt != shifts.end();)
 	{
-		if (shifter->finished())
-			; // delete shifter; --> shifts.erase(shifter);
+		if ((*shifterIt)->finished())
+			shifterIt = shifts.erase(shifterIt);
+		else
+			++shifterIt;
+	}
+
+	if (isShifting && shifts.empty())
+	{
+		for (int x = 0; x < settings.boardWidht; ++x)
+		{
+			for (int y = settings.boardHeight - 1; y >= 4; --y)
+			{
+				tiles[x][y]->clearMatches();
+			}
+		}
 	}
 }
 
 void MatchThree::render()
 {
+}
+
+bool MatchThree::isShifting() const
+{
+	return !shifts.empty();
 }
 
 void MatchThree::createBoard()
@@ -217,7 +237,6 @@ void MatchThree::findNullTiles()
 
 void MatchThree::shiftTilesDown(int x, int initialY)
 {
-	//isShifting = true;
 	std::vector<Tile*> tilesToShift;
 	int nullCount = 0;
 
@@ -230,5 +249,4 @@ void MatchThree::shiftTilesDown(int x, int initialY)
 	}
 
 	shifts.push_back(new BlockShifter(nullCount, 300, tilesToShift));
-	//isShifting = false;
 }

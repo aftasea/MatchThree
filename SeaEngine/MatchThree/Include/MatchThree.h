@@ -25,6 +25,8 @@ public:
 	virtual void update();
 	virtual void render();
 
+	bool isShifting() const;
+
 	std::vector<Tile*> getAllAdjacentTiles(int x, int y);
 	void clearAllMatches(int x, int y, int id);
 	void findNullTiles();

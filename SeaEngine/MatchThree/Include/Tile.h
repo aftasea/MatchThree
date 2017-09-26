@@ -29,11 +29,11 @@ public:
 	void swapSprite(Tile* newTile);
 	void setSpriteFrom(Tile* tile);
 	void assignNewSprite(int spriteId, std::string path);
+	void clearMatches();
 
 private:
 	void select();
 	void deselect();
-	void clearMatches();
 
 	static Tile* previousSelected;
 	static Sprite* selectedSprite;
