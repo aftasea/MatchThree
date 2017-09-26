@@ -28,7 +28,7 @@ public:
 	bool isShifting() const;
 
 	std::vector<Tile*> getAllAdjacentTiles(int x, int y);
-	void clearAllMatches(int x, int y, int id);
+	void clearMatchesFrom(int x, int y, int id);
 	void findNullTiles();
 	void setNewSprite(Tile* tile);
 

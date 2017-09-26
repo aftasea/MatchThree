@@ -136,7 +136,7 @@ std::vector<Tile*> MatchThree::getAllAdjacentTiles(int x, int y)
 	return adjacentTiles;
 }
 
-void MatchThree::clearAllMatches(int x, int y, int id)
+void MatchThree::clearMatchesFrom(int x, int y, int id)
 {
 	clearHorizontalMatches(x, y, id);
 	clearVerticalMatches(x, y, id);

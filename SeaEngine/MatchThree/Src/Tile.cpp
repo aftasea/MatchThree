@@ -114,12 +114,15 @@ void Tile::setDimensions(int w, int h)
 
 void Tile::removeSprite()
 {
-	std::cout << "Removing id: " << id << ", x: " << posX << ", y: " << posY << ", gridX: " << gridPosX << ", gridY: " << gridPosY << std::endl;
-	Engine::getInstance().unregisterRenderableObject(sprite);
-	//TODO: use a Sprite pool instead of deleting
-	delete sprite;
-	sprite = nullptr;
-	id = -1;
+	if (sprite != nullptr)
+	{
+		std::cout << "Removing id: " << id << ", x: " << posX << ", y: " << posY << ", gridX: " << gridPosX << ", gridY: " << gridPosY << std::endl;
+		Engine::getInstance().unregisterRenderableObject(sprite);
+		//TODO: use a Sprite pool instead of deleting
+		delete sprite;
+		sprite = nullptr;
+		id = -1;
+	}
 }
 
 void Tile::select()
@@ -189,7 +192,7 @@ void Tile::clearMatches()
 	if (sprite == nullptr)
 		return;
 
-	MatchThree::getInstance().clearAllMatches(gridPosX, gridPosY, id);
+	MatchThree::getInstance().clearMatchesFrom(gridPosX, gridPosY, id);
 
 	if (MatchThree::getInstance().matchFound)
 	{
