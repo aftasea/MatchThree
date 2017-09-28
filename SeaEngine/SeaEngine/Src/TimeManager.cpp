@@ -23,7 +23,7 @@ void TimeManager::update()
 void TimeManager::registerDelayedCallback(Uint32 interval, IObserver* observer)
 {
 	// add callback to list (to be removed on demand or after executed
-	SDL_TimerID timerID = SDL_AddTimer(interval, TimeManager::enqueueNotification, reinterpret_cast<void*>(observer));
+	SDL_TimerID timerID = SDL_AddTimer(interval, TimeManager::enqueueNotification, static_cast<void*>(observer));
 }
 
 /*** Note: As SDL_AddTimer is asynchronous, the notifications are enqueued 
@@ -31,6 +31,6 @@ void TimeManager::registerDelayedCallback(Uint32 interval, IObserver* observer)
 	the render state of the game loop									***/
 Uint32 TimeManager::enqueueNotification(Uint32 interval, void* observer)
 {
-	instance->observersToNotify.push(reinterpret_cast<IObserver*>(observer));
+	instance->observersToNotify.push(static_cast<IObserver*>(observer));
 	return 0;
 }
