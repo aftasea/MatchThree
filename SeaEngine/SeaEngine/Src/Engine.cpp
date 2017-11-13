@@ -5,7 +5,6 @@
 #include "IInputHandler.h"
 #include "Actor.h"
 #include "TimeManager.h"
-#include <algorithm>
 #include "IObserver.h"
 
 #include <cstdlib>

@@ -5,7 +5,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <cstdint>
 #include "IGame.h"
 #include "IObserver.h"
 

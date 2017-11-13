@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include <cstdlib>
 
 namespace Sea
 {
