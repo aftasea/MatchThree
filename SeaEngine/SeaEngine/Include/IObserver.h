@@ -2,11 +2,14 @@
 #ifndef I_OBSERVER_H
 #define I_OBSERVER_H
 
-class IObserver
+namespace Sea
 {
-public:
-	virtual ~IObserver() {}
-	virtual void onNotify() = 0;
-};
+	class IObserver
+	{
+	public:
+		virtual ~IObserver() {}
+		virtual void onNotify() = 0;
+	};
+}
 
 #endif // !I_OBSERVER_H

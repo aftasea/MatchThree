@@ -4,14 +4,17 @@
 
 #include <string>
 
-class Utils
+namespace Sea
 {
-public:
-	static int getRandom(int min, int max);
-	static int getNewId();
+	class Utils
+	{
+	public:
+		static int getRandom(int min, int max);
+		static int getNewId();
 
-private:
-	static int id;
-};
+	private:
+		static int id;
+	};
+}
 
 #endif // !UTILS_H

@@ -172,7 +172,7 @@ void MatchThree::clearHorizontalMatches(int x, int y, int id)
 	{
 		for (auto tile : matchingTiles)
 		{
-			tile->removeSprite();
+			tile->removeSprite();			
 		}
 		matchFound = true;
 	}

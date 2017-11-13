@@ -3,7 +3,7 @@
 
 int main(int argc, char* args[])
 {
-	Engine engine;
+	Sea::Engine& engine = Sea::Engine::getInstance();
 	engine.init(800, 600, "Match Three");
 	MatchThree game;
 	engine.run(game);

@@ -1,13 +1,16 @@
 #include "Utils.h"
 
-int Utils::id = 0;
-
-int Utils::getRandom(int min, int max)
+namespace Sea
 {
-	return (rand() % (max - min + 1)) + min;
-}
+	int Utils::id = 0;
 
-int Utils::getNewId()
-{
-	return id++;
+	int Utils::getRandom(int min, int max)
+	{
+		return (rand() % (max - min + 1)) + min;
+	}
+
+	int Utils::getNewId()
+	{
+		return id++;
+	}
 }

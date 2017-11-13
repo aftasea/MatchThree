@@ -10,7 +10,13 @@
 
 class Tile;
 class BlockShifter;
-class Sprite;
+
+namespace Sea
+{
+	class Sprite;
+}
+
+using namespace Sea;
 
 class MatchThree : public IGame
 {

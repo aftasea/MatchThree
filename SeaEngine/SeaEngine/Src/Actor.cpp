@@ -1,27 +1,30 @@
 #include "Actor.h"
 
-Actor::Actor()
-{}
-
-Actor::~Actor()
-{}
-
-int Actor::getXpos() const
+namespace Sea
 {
-	return posX;
-}
+	Actor::Actor()
+	{}
 
-int Actor::getYpos() const
-{
-	return posY;
-}
+	Actor::~Actor()
+	{}
 
-int Actor::getWidth() const
-{
-	return width;
-}
+	int Actor::getXpos() const
+	{
+		return posX;
+	}
 
-int Actor::getHeight() const
-{
-	return height;
+	int Actor::getYpos() const
+	{
+		return posY;
+	}
+
+	int Actor::getWidth() const
+	{
+		return width;
+	}
+
+	int Actor::getHeight() const
+	{
+		return height;
+	}
 }

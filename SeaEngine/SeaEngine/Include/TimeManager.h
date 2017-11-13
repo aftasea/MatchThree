@@ -6,20 +6,23 @@
 #include <SDL.h>
 #include "IObserver.h"
 
-class TimeManager
+namespace Sea
 {
-public:
-	TimeManager();
-	~TimeManager();
+	class TimeManager
+	{
+	public:
+		TimeManager();
+		~TimeManager();
 
-	void registerDelayedCallback(Uint32 interval, IObserver* observer);
-	void update();
+		void registerDelayedCallback(Uint32 interval, IObserver* observer);
+		void update();
 
-private:
-	static TimeManager* instance;
+	private:
+		static TimeManager* instance;
 
-	static Uint32 enqueueNotification(Uint32 interval, void* param);
-	std::queue<IObserver*> observersToNotify;
-};
+		static Uint32 enqueueNotification(Uint32 interval, void* param);
+		std::queue<IObserver*> observersToNotify;
+	};
+}
 
 #endif // !TIME_MANAGER_H

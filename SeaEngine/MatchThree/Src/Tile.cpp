@@ -75,7 +75,7 @@ int Tile::getId() const
 
 bool Tile::hasSprite() const
 {
-	return sprite != nullptr;
+	return sprite != nullptr && id != 100 && id != -1;
 }
 
 int Tile::getGridPosX() const
@@ -200,4 +200,3 @@ void Tile::clearMatches()
 		MatchThree::getInstance().findNullTiles();
 	}
 }
-

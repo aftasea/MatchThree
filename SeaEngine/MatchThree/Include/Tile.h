@@ -6,7 +6,12 @@
 #include "Actor.h"
 #include "IInputHandler.h"
 
-class Sprite;
+namespace Sea
+{
+	class Sprite;
+}
+
+using namespace Sea;
 
 class Tile : public Actor, public IInputHandler
 {

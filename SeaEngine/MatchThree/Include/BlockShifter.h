@@ -9,6 +9,8 @@
 
 class Tile;
 
+using namespace Sea;
+
 class BlockShifter : IObserver
 {
 public:
