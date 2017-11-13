@@ -30,7 +30,6 @@ public:
 	}
 
 	virtual void update();
-	virtual void render();
 
 	bool isShifting() const;
 

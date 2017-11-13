@@ -57,10 +57,6 @@ void MatchThree::update()
 	}
 }
 
-void MatchThree::render()
-{
-}
-
 bool MatchThree::isShifting() const
 {
 	return !shifts.empty();

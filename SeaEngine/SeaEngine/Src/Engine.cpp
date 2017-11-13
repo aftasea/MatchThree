@@ -73,7 +73,6 @@ namespace Sea
 						if (isPointInside(handler->getOwner(), x, y))
 							handler->onMouseDown();
 					}
-
 				}
 			}
 
@@ -115,7 +114,6 @@ namespace Sea
 				}
 			}
 
-			game->render();
 			SDL_UpdateWindowSurface(window);
 		}
 	}
